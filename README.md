@@ -99,6 +99,12 @@ The mongo collections before and after App start
 
 ### GET product by id
 
+Response: 
+
+![Get Product by Id](https://user-images.githubusercontent.com/24579657/136066882-246d77dc-a85a-4947-b42c-157fd6107f12.JPG)
+
+Other Examples: 
+
 1) On a valid product id the response is a 200 OK
 
 ```
@@ -123,6 +129,12 @@ Response: 404 Not Found
 ```
 
 ### PUT product price by id
+
+Response: 
+
+![Put Product price By Id](https://user-images.githubusercontent.com/24579657/136066945-bccc5c5e-01ac-4ace-ba34-9bfe613a2a0c.JPG)
+
+Other Examples: 
 
 1) On a valid product id the response is a 200 OK and returns an updated product price information
 
