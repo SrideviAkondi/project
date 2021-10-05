@@ -55,17 +55,38 @@ Otherwise, use the following mongodb commands
 
 ## Build, Test and Run application
 
+```
 cd project
+```
 
 Then run
 
+```
 mvn clean package
+```
+
+<img width="1672" alt="Clean package" src="https://user-images.githubusercontent.com/24579657/136049884-5617690c-a011-48fa-9673-c93927f8ac35.png">
 
 Then run the jar
 
+```
 java -jar target/project-0.0.1-SNAPSHOT.jar
+```
+
+<img width="1672" alt="Run the jar" src="https://user-images.githubusercontent.com/24579657/136049941-ccc2111f-5173-499b-845b-ee5394a5fab3.png">
+
+Run the unit tests in an IDE
+
+<img width="1658" alt="Unit Tests passed" src="https://user-images.githubusercontent.com/24579657/136050027-957902ef-6731-4d6c-9f76-713546d82aa7.png">
+
 
 Application will start running on port 8080
+
+The mongo collections before and after App start
+
+<img width="1671" alt="Before App start" src="https://user-images.githubusercontent.com/24579657/136050153-65d56c25-8b3f-459a-808d-615acf904042.png">
+
+<img width="1671" alt="Collection created after App start" src="https://user-images.githubusercontent.com/24579657/136050172-5b642edd-1de0-4827-adab-d411fe0cdd8e.png">
 
 
 ## myRetail Endpoints
