@@ -161,9 +161,14 @@ Response: 404 Not Found
     current_price not found for id: 1386042899
 ```
 
+#### If the external API is down/not responding then the following 410 error will be returned
+
+![image](https://user-images.githubusercontent.com/24579657/136055576-9fadcf86-f036-4db2-80e5-b4be81916d5a.png)
+
+
 #### Note:
 
-If there is a Socket Exception and Mongo is unable to start; then that could possibly due to mongo not being discovered in the system:
+If there is a Socket Exception and Mongo is unable to start; then that could possibly be due to mongo not being properly set up/discovered in the system:
 
 Use the following commands then 
 
