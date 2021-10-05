@@ -1,0 +1,10 @@
+application:
+  app:
+    redSkyUri: https://redsky.target.com/v3/pdp/tcin
+spring:
+  data:
+    mongodb:
+      database: product
+server:
+  error:
+    include-stacktrace: ON_PARAM
