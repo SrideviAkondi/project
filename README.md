@@ -9,7 +9,7 @@ myRetail is a rapidly growing company with HQ in Richmond, VA and over 200 store
 
 To clone this repo use 
 
-```git clone command ```
+```git clone "https://github.com/SrideviAkondi/project" ```
 
 ## Technologies used
 
@@ -26,6 +26,12 @@ Data Store (NoSQL): MongoDB 5.0.3
 MongoDB compass (GUI to view the collection): 1.28.4
 
 Apache Maven: 3.8.3
+
+Java 1.8.0_211
+
+Postman API testing tool
+
+IDE: IntelliJ IDEA
 
 ## Mongo DB database and collection
 
@@ -153,4 +159,15 @@ Request Body:
     }
 Response: 404 Not Found
     current_price not found for id: 1386042899
+```
+
+#### Note:
+
+If there is a Socket Exception and Mongo is unable to start; then that could possibly due to mongo not being discovered in the system:
+
+Use the following commands then 
+
+```
+mkdir $HOME/data
+$ mongod --dbpath $HOME/data
 ```
