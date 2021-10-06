@@ -1,9 +1,9 @@
 package com.retail.myRetail.service
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.mongodb.MongoException
-import com.retail.myRetail.configuration.AppConfig
 import com.retail.myRetail.model.Product
 import com.retail.myRetail.model.ProductMock
 import com.retail.myRetail.model.ProductPriceMock
@@ -29,16 +29,12 @@ import org.mockito.Mockito.never
 import org.mockito.Mockito.reset
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoInteractions
-import org.springframework.http.HttpStatus
-import org.springframework.web.client.HttpClientErrorException
-import org.springframework.web.client.RestTemplate
-import org.springframework.web.server.ResponseStatusException
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ProductServiceTest {
     // Constants
     private val mapper = jacksonObjectMapper()
-    private val appConfig: AppConfig = AppConfig("https://xyz.com/v3/pdp/tcin")
+    // private val appConfig: AppConfig = AppConfig("https://xyz.com/v3/pdp/tcin")
     private val productPrices = ProductPriceMock.list()
     private val expectedProduct = ProductMock.get()
     private val objectNode: ObjectNode = mapper.readTree(
@@ -54,9 +50,10 @@ class ProductServiceTest {
     ).deepCopy()
 
     // Dependencies
-    val restTemplate: RestTemplate = mock(RestTemplate::class.java)
+    // val restTemplate: RestTemplate = mock(RestTemplate::class.java)
     val productPriceRepository: ProductPriceRepository = mock(ProductPriceRepository::class.java)
-    val productService =  ProductService(appConfig, restTemplate, productPriceRepository)
+    val objectMapper: ObjectMapper = mock(ObjectMapper::class.java)
+    val productService =  ProductService(objectMapper, productPriceRepository)
 
     @BeforeEach
     fun setUp() {
@@ -65,11 +62,12 @@ class ProductServiceTest {
 
     @AfterEach
     fun tearDown() {
-        reset(restTemplate, productPriceRepository)
+        reset(objectMapper, productPriceRepository)
     }
 
     @Nested
     inner class Get {
+        /*
         @Test
         fun `should throw HttpClientErrorException when product id is not found`() {
             `when`(restTemplate.getForObject(anyString(), eq(ObjectNode::class.java))).thenThrow(
@@ -79,11 +77,13 @@ class ProductServiceTest {
                 productService.get("1234567")
            }
         }
+        */
 
         @Test
         fun `should return product when external API returns a valid resource`() {
-            `when`(restTemplate.getForObject(anyString(), eq(ObjectNode::class.java))).thenReturn(objectNode)
+            // `when`(restTemplate.getForObject(anyString(), eq(ObjectNode::class.java))).thenReturn(objectNode)
             `when`(productPriceRepository.findById(any())).thenReturn(Optional.of(productPrices.first()))
+            `when`(objectMapper.readValue(anyString(), eq(ObjectNode::class.java))).thenReturn(objectNode)
 
             val product = productService.get("1234567")
             assertThat(product).isEqualTo(expectedProduct)
@@ -91,7 +91,7 @@ class ProductServiceTest {
 
         @Test
         fun `should throw MongoException when price for the product is not found in data store`() {
-            `when`(restTemplate.getForObject(anyString(), eq(ObjectNode::class.java))).thenReturn(objectNode)
+            // `when`(restTemplate.getForObject(anyString(), eq(ObjectNode::class.java))).thenReturn(objectNode)
             `when`(productPriceRepository.findById(any())).thenThrow(MongoException("current_price unavailable for id"))
 
             assertThrows<MongoException> {
@@ -106,7 +106,8 @@ class ProductServiceTest {
         fun `should only update product's price in data store`() {
             `when`(productPriceRepository.findById(any())).thenReturn(Optional.of(productPrices.first()))
             `when`(productPriceRepository.save(any(ProductPrice::class.java))).thenReturn(ProductPrice(BigInteger("1234567"),BigDecimal("11.24"), "INR"))
-            `when`(restTemplate.getForObject(anyString(), eq(ObjectNode::class.java))).thenReturn(objectNode)
+            //`when`(restTemplate.getForObject(anyString(), eq(ObjectNode::class.java))).thenReturn(objectNode)
+            `when`(objectMapper.readValue(anyString(), eq(ObjectNode::class.java))).thenReturn(objectNode)
 
             val updatedProduct = productService.updatePrice(
                 Product(
@@ -132,7 +133,8 @@ class ProductServiceTest {
                 )
             }
             verify(productPriceRepository, never()).save(any(ProductPrice::class.java))
-            verifyNoInteractions(restTemplate)
+            verifyNoInteractions(objectMapper)
+            // verifyNoInteractions(restTemplate)
             assertThat(ex.message).isEqualTo("current_price not found for id")
         }
     }
