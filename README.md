@@ -173,6 +173,10 @@ Response: 404 Not Found
     current_price not found for id: 1386042899
 ```
 
+3) Updates only price of Product where id and name are optional fields in requestBody
+
+<img width="1242" alt="Update only price" src="https://user-images.githubusercontent.com/24579657/136126840-814e2114-3c8e-4651-a80e-6d9cd9dd4276.png">
+
 #### If the external API is down/not responding then the following 410 error will be returned
 
 ![image](https://user-images.githubusercontent.com/24579657/136055576-9fadcf86-f036-4db2-80e5-b4be81916d5a.png)
