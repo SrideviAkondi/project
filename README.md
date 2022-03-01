@@ -1,7 +1,7 @@
 # Case study 
 
 ## Author
-- [Venkata Sridevi Akondi](https://github.com/SrideviAkondi)
+- [Sridevi Akondi](https://github.com/SrideviAkondi)
 
 ## myRetail Restful service
 
